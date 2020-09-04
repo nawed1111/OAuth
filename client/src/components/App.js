@@ -1,17 +1,24 @@
 import React, { Component } from 'react';
 import { BrowserRouter, Route } from 'react-router-dom';
 
-const Login = () => <h2> <a href="/auth/google">Login with Google</a> </h2>
-const Home = () => <h2> Home Page</h2>
+import { connect } from 'react-redux';
+import * as actions from '../actions';
+import HomePage from './HomePage';
+import LoginPage from './auth/LoginPage'; 
+import './App.css';
 
 class App extends Component{
+    componentDidMount(){
+        this.props.fetchUser();
+    }
+
     render(){
         return(
             <div>
                 <BrowserRouter>
                     <div className="container">
-                        <Route exact path="/" component={Home} />
-                        <Route exact path="/login" component={Login} />
+                        <Route exact path="/" component={HomePage} />
+                        <Route exact path="/auth" component={LoginPage} />
                     </div>
                 </BrowserRouter>
                 
@@ -20,4 +27,4 @@ class App extends Component{
     }
 };
 
-export default App;
+export default connect(null, actions)(App);
